@@ -7,7 +7,7 @@
   } else {
     $conn = mysqli_connect("localhost", "root", "", "sistema");
 
-    $postagens= $conn->query("SELECT * FROM postagens JOIN usuarios WHERE fk_usuario=id ORDER BY id_postagens DESC");
+    // $postagens= $conn->query("");
 
   }
 ?>
@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link rel="stylesheet" href="./css/home.css" />
 
-  <title>Home</title>
+  <title>Perfil</title>
 </head>
 <body>
 
@@ -45,31 +45,41 @@
 
 <!-- Conteúdo -->
 <main class="container">
-  <form class="form-row mt-5" action="cadastro_postagens.php" method="post">
-    <input type="text" name="post" class="col-9 form-control" placeholder="No que você está pensando, <?php echo $_SESSION['nome']?>?">
-    <button class="col-3 btn text-light" type = "submit">Publicar</button>
-  </form>
 
-  <?php
-  if($postagens->num_rows > 0){
-  foreach ($postagens as $postagem){
+<section class="row pt-5">
 
-  ?>
+<div class="col-lg-4">
+  <img class="rounded-circle" style="heigth: 300px; width: 300px" src="<?php echo $_SESSION['imagem']?>" alt="<?php echo $_SESSION['nome'] ?>">
+</div>
 
-    <div class="card mt-5">
-      <div class="card-header">
-        <img class="rounded-circle" src="<?php echo $postagem['imagem']?>" alt="<?php echo $postagem['nome'] ?>">
-        <h5 class="ml-3 mb-0"><?php echo $postagem['nome'] ?></h5>
-      </div>
+<div class="col-ld-8">
+  <h1><?php echo $_SESSION["nome"] ?></h1>
+  <p><?php echo $_SESSION["email"] ?></p>
+</div>
 
-      <div class="card-body">
-        <?php echo $postagem["conteudo"] ?>
-      </div>
-    </div>
-  
-  <?php }} ?>
+</section>
+
+<section class="mt-5 border p-5">
+
+<div class="alert alert-danger" role="alert">
+  Cuidado! ao remover a conta, não poderá ser recuperada!
+</div>
+
+<button class="btn btn-danger" onclick="confirmar()">Remover conta</button>
+
+</section>
 
 </main>
+
+<script>
+  function confirmar() {
+    let confirmacao = confirm("Você realmente deseja excluir a sua conta?");
+
+    if(confirmacao == true) {
+      location.href = "remover_conta.php?id=" + <?php echo $_SESSION["id"] ?>
+    }
+  }
+</script>
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

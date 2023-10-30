@@ -1,3 +1,38 @@
+<?php
+  session_start();
+  // Se não existir um valor no indice 'nome', entao encerre a aplicação;
+  if (!isset($_SESSION['nome'])) {
+    header('Location: index.php'); //Protege a página Home
+    exit;
+  } else {
+    $conn = mysqli_connect("localhost", "root", "", "sistema");
+
+    $postagens= $conn->query("SELECT * FROM postagens JOIN usuarios WHERE fk_usuario=id ORDER BY id_postagens DESC");
+
+  }
+?>
+text-light" type = "submit">Publicar</button>
+  </form>
+
+  <?php
+  if($postagens->num_rows > 0){
+  foreach ($postagens as $postagem){
+
+  ?>
+
+    <div class="card mt-5">
+      <div class="card-header">
+        <img class="rounded-circle" src="<?php echo $postagem['imagem']?>" alt="<?php echo $postagem['nome'] ?>">
+        <h5 class="ml-3 mb-0"><?php echo $postagem['nome'] ?></h5>
+      </div>
+
+      <div class="card-body">
+        <?php echo $postagem["conteudo"] ?>
+      </div>
+    </div>
+  
+  <?php }} ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,9 +80,25 @@
     <header>
         <h1>LunarTube - Seu Site de Vídeos</h1>
     </header>
-<nav>
-  <a href="index.php" class="btn btn-primary">Fazer Login</a>
-</nav>
+<header class="container-fluid border shadow">
+  <nav class="row container m-auto">
+    <div class="col-10 d-flex align-items-center">
+      <img class="rounded-circle" src="<?php echo $_SESSION['imagem']?>" alt="<?php echo $_SESSION['nome'] ?>">
+      <h5 class="ml-3 mb-0"><?php echo $_SESSION['nome'] ?></h5>
+    </div>
+
+    <div class="col-2 d-flex align-items-center justify-content-end">
+      <div class="dropdown">
+        <button class="btn text-white rounded-circle dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="perfil.php">Meu perfil</a>
+          <a class="dropdown-item" href="sair.php">Sair</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
     <div id="search-bar">
         <input type="text" id="search-input" placeholder="Pesquisar vídeos">
         <button onclick="searchVideos()">Pesquisar</button>
@@ -107,4 +158,4 @@
         }
     </script>
 </body>
-</html>
+  </html>
