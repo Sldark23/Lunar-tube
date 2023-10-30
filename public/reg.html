@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registro - Unimelr</title>
+</head>
+<body>
+    <header>
+        <h1>Registro</h1>
+    </header>
+    <main>
+        <form action="/register" method="post">
+            <label for="username">Nome de Usuário:</label>
+            <input type="text" id="username" name="username" required>
+            <br>
+
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+            <br>
+
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" required>
+            <br>
+
+            <label for="confirmPassword">Confirmar Senha:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <br>
+
+            <input type="submit" value="Registrar">
+        </form>
+        <p>Já tem uma conta? <a href="/login">Faça login aqui</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2023 Unimelr</p>
+    </footer>
+</body>
+</html>
