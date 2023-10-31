@@ -12,7 +12,7 @@ async function fetchYouTubeVideos() {
     const response = await youtube.search.list({
       part: 'snippet',
       maxResults: 89, // Ajuste o número de resultados desejado
-      q: 'bloxfruits', // Substitua 'termo_de_pesquisa' pelo que deseja pesquisar
+      q: '#jazzghost', // Substitua 'termo_de_pesquisa' pelo que deseja pesquisar
     });
 
     const videos = response.data.items.map((video) => ({
